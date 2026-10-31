@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f286b5d3a170cf344a05f5c965fbf8d2, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: DachshundDash::DachshundDash.GameConfig
+  laneSpacing: 1.6
+  slotLength: 2
+  biomeLength: 400
+  startSpeed: 4
+  maxSpeed: 6.5
+  speedTimeConstant: 90
+  dogLength: 1.1
+  dogHeight: 0.62
+  dogCrouchHeight: 0.36
+  hitboxScale: 0.85
+  laneSwitchTime: 0.16
+  jumpHeight: 1.4
+  gravity: 30
+  fastFallMultiplier: 3
+  coyoteTime: 0.08
+  jumpBuffer: 0.12
+  inputBuffer: 0.15
+  moleReach: 0.6
+  moleTelegraphDistance: 8
+  catSpeed: 5
+  catReactionTime: 1
+  maxTriggerDistance: 8
+  catWindup: 0.2
+  crowHeight: 1.8
+  crowDiveBottom: 0.45
+  crowSpeed: 5
+  crowReactionTime: 1
+  maxCharges: 3
+  flyDuration: 6
+  flyAltitude: 1.6
+  slowDuration: 5
+  slowFactor: 0.6
+  invincibleDuration: 6
+  doubleJumpDuration: 10
+  powerUpSpacingMin: 250
+  powerUpSpacingMax: 400
+  lookAhead: 90
+  keepBehind: 25

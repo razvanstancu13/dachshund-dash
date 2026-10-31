@@ -1,0 +1,45 @@
+# Unity generated
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Build output and captures
+/[Bb]uild/
+/[Bb]uilds/
+/Data/
+*_BurstDebugInformation_DoNotShip/
+
+# IDE generated
+.vs/
+.idea/
+.vscode/
+*.csproj
+*.sln
+*.slnx
+*.user
+*.pidb
+*.suo
+*.tmp
+*.pdb
+*.mdb
+
+# OS / misc
+.DS_Store
+Thumbs.db
+sysinfo.txt
+crashlytics-build.properties
+
+# Python
+__pycache__/
+*.pyc
+
+# Local Claude settings
+.claude/settings.local.json
+
+# Local tooling and docs (not versioned)
+/tools/
+/docs/
