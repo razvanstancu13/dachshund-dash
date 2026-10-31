@@ -14,8 +14,8 @@ namespace DachshundDash.EditorTools
     ///   ... -executeMethod DachshundDash.EditorTools.ProjectBuilder.BuildWebGL</summary>
     public static class ProjectBuilder
     {
-        const string Res = "Assets/_Game/Resources/";
-        const string Scenes = "Assets/_Game/Scenes/";
+        const string Res = "Assets/Resources/";
+        const string Scenes = "Assets/Scenes/";
         const int GroundQueue = 1990;
 
         [MenuItem("Dachshund Dash/Setup Project")]

@@ -63,7 +63,7 @@ Chrome (type, keys, clicks, screenshots, console log).
 
 ## How it is built
 - Everything is created in code at runtime: each scene holds one root component (`MenuRoot`, `GameRoot`).
-- `Assets/_Game/Resources`: `Models/<name>.fbx` + `<name>_tex.png` (the game builds matte Simple Lit materials from
+- `Assets/Resources`: `Models/<name>.fbx` + `<name>_tex.png` (the game builds matte Simple Lit materials from
   them; `tools/extract_textures.py` pulls the textures out of the FBX files), `Textures/` (ground, parallax),
   `UI/` (skin, icons, logo, menu background - 9 / 3-slice borders set by `ImportRules`), `Audio/`, `Fonts/`.
 - Tunables: `GameConfig` (defaults in code; a `Resources/GameConfig.asset` overrides them).

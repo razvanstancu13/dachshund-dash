@@ -8,7 +8,7 @@ namespace DachshundDash.EditorTools
     /// <summary>Import settings by folder, so dropped-in generated assets are game-ready without manual steps.</summary>
     public class ImportRules : AssetPostprocessor
     {
-        const string Root = "Assets/_Game/Resources/";
+        const string Root = "Assets/Resources/";
 
         static readonly HashSet<string> LoopClips = new HashSet<string>
             { "Idle", "Walk", "Run", "Trot", "CrouchRun", "Glide", "Flap", "Eat", "LookAround" };
