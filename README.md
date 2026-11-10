@@ -92,6 +92,15 @@ Chrome (type, keys, clicks, screenshots, console log).
   from a cut-out by `tools/make_decal.py`). Cats come in orange / brown / white coats (`tools/recolor.py`).
 - Crows hover over any lane, caw when they spot the dog and lock onto the dog's lane when they dive. Enemies turn to
   face the dog (a charging cat looks where it runs). A crash shakes the camera and flashes a red screen frame.
+- Post-processing (`PostFx`, game and menu cameras): a night-film grade - neutral tonemapping, moonlit-blue shadows /
+  lamp-warm highlights, bloom on the glowing bits, vignette, fine grain, slight chromatic fringe and a soft far
+  background (Gaussian depth of field), SMAA. Moods follow the run: speed (vignette, fringe), Slow (desaturated,
+  violet edges), Shield (gold edges, more bloom), Fly (wider lens), crash (red jolt + flash), dying / result
+  (drains colour), pause (dims). Phones get a light tier (no grain / depth of field / fringe, FXAA). The base values
+  are the constants at the top of `PostFx.cs`; `Resources/PostFx.asset` (made by `Setup`) only keeps the shader
+  variants in builds. Command line: `-nopostfx` (off, for comparisons with `tools\compare_shots.ps1`), `-postfxlow`.
+- Night air (`AmbientFx`): drifting motes around the view - warm dust in the street, cool ash in the alley,
+  blinking fireflies (bright enough to bloom) over the backyards.
 - WebGL: lit materials use URP *Simple Lit*; strict shader variant matching is off (a missing variant falls back to
   the nearest one instead of showing pink).
 

@@ -60,6 +60,7 @@ namespace DachshundDash
             go.AddComponent<AudioListener>();
             go.transform.position = new Vector3(0, 1.0f, -6f);
             go.transform.rotation = Quaternion.Euler(6, 0, 0);
+            PostFx.Attach(cam);                                    // the same film grade as the run
 
             Art.SetAmbient(new Color(0.55f, 0.52f, 0.7f), new Color(0.45f, 0.42f, 0.6f), new Color(0.25f, 0.22f, 0.3f));
             RenderSettings.fog = false;

@@ -25,7 +25,7 @@ namespace DachshundDash
             return ps;
         }
 
-        static Material Mat(bool additive, Texture tex)
+        internal static Material Mat(bool additive, Texture tex)
         {
             var m = new Material(Art.Mat(additive ? "ParticleAdd" : "ParticleAlpha"));
             if (m.HasProperty("_BaseMap")) m.SetTexture("_BaseMap", tex);

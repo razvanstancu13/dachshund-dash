@@ -36,6 +36,8 @@ namespace DachshundDash
         public Level Level { get; private set; }
         public InputRouter Input { get; private set; }
         CameraRig _cam;
+        PostFx _post;
+        AmbientFx _ambient;
         Backdrop _backdrop;
         GameHud _hud;
         bool _paused, _resultShown, _leaving;
@@ -46,6 +48,8 @@ namespace DachshundDash
             Time.timeScale = 1f;
             SetupLighting();
             _cam = CameraRig.Create();
+            _post = PostFx.Attach(_cam.Cam);
+            _ambient = AmbientFx.Create();
             Input = gameObject.AddComponent<InputRouter>();
             Input.Enabled = false;
 
@@ -69,6 +73,7 @@ namespace DachshundDash
             }
             Dog.BonesChanged += n => _hud.SetScore(n);
             Dog.Died += OnDied;
+            Dog.PowerUpCollected += _ => { if (_post != null) _post.Flash(); };
 
             _hud = new GameObject("HudRoot").AddComponent<GameHud>();
             _hud.Build(Input, Dog.PowerUps, () => SetPaused(false), Quit, ContinueAfterResult);
@@ -94,6 +99,7 @@ namespace DachshundDash
             Level.SetView(behind);
             _backdrop.SetView(behind);
             _backdrop.Follow(_cam.X, _cam.Z);
+            _ambient.SetView(behind);
         }
 
         void SetupLighting()
@@ -162,9 +168,24 @@ namespace DachshundDash
             Level.Tick(Dog, Current == State.Running ? dt : 0f);
             _cam.Follow(Dog.transform.position, dt);
             _backdrop.Follow(_cam.X, _cam.Z);
+            _ambient.Follow(_cam.X, _cam.Z, Level.BiomeAt(_cam.X));
+            UpdatePost();
 
             if (Current == State.Result && Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
                 ContinueAfterResult();
+        }
+
+        /// <summary>Feeds the run's state to the post-processing moods (speed, power-ups, dying).</summary>
+        void UpdatePost()
+        {
+            if (_post == null) return;
+            var cfg = GameConfig.I;
+            _post.Speed01 = Current == State.Running ? Mathf.InverseLerp(cfg.startSpeed, cfg.maxSpeed, Dog.Speed) : 0f;
+            bool running = Current == State.Running;
+            _post.Slow = running && Dog.PowerUps.Active(PowerUpType.Slow);
+            _post.Shield = running && Dog.PowerUps.Active(PowerUpType.Invincible);
+            _post.Fly = running && Dog.PowerUps.Active(PowerUpType.Fly);
+            _post.Dead = Current == State.Dying || Current == State.Result;
         }
 
         public bool CanContinue => Current == State.Result && _dyingT > 2.2f;
@@ -178,6 +199,7 @@ namespace DachshundDash
             Services.Audio.Duck(0.3f);
             // the hit lands: the view jolts and the screen edges flash red (the crash sound plays in Player)
             _cam.Shake(Dog.HitObstacle ? 0.45f : 0.35f, Dog.HitObstacle ? 0.22f : 0.15f);
+            if (_post != null) _post.Punch(Dog.HitObstacle ? 1f : 0.8f);
             _hud.FlashHurt();
         }
 
@@ -189,6 +211,7 @@ namespace DachshundDash
             AudioListener.pause = p;
             Input.Enabled = !p && Current == State.Running;
             _hud.ShowPause(p);
+            if (_post != null) _post.Paused = p;
         }
 
         void ContinueAfterResult()

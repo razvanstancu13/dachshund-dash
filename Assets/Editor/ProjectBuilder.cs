@@ -28,6 +28,7 @@ namespace DachshundDash.EditorTools
             MakeHelperTextures();
             MakeMaterials();
             MakeConfig();
+            MakePostFx();
             MakeScenes();
             PlayerSetup();
             AssetDatabase.SaveAssets();
@@ -205,6 +206,29 @@ namespace DachshundDash.EditorTools
             const string p = Res + "GameConfig.asset";
             if (AssetDatabase.LoadAssetAtPath<GameConfig>(p) == null)
                 AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<GameConfig>(), p);
+        }
+
+        /// <summary>Resources/PostFx.asset: the base look with every override PostFx animates. Not loaded at run time;
+        /// it keeps those post-processing shader variants in builds (unused ones are stripped).</summary>
+        static void MakePostFx()
+        {
+            const string p = Res + "PostFx.asset";
+            var profile = AssetDatabase.LoadAssetAtPath<VolumeProfile>(p);
+            if (profile == null)
+            {
+                profile = ScriptableObject.CreateInstance<VolumeProfile>();
+                AssetDatabase.CreateAsset(profile, p);
+            }
+            PostFx.Configure(profile, false);
+            // overrides that rest at zero in game still count as used here
+            if (profile.TryGet(out UnityEngine.Rendering.Universal.LensDistortion lens)) lens.intensity.Override(-0.01f);
+            foreach (var c in profile.components)
+                if (!AssetDatabase.IsSubAsset(c))
+                {
+                    c.hideFlags = HideFlags.HideInInspector | HideFlags.HideInHierarchy;
+                    AssetDatabase.AddObjectToAsset(c, profile);
+                }
+            EditorUtility.SetDirty(profile);
         }
 
         // -------------------------------------------------------------- scenes and settings

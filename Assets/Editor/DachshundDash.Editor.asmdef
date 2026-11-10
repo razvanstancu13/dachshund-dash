@@ -2,7 +2,9 @@
     "name": "DachshundDash.Editor",
     "rootNamespace": "DachshundDash.EditorTools",
     "references": [
-        "DachshundDash"
+        "DachshundDash",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
     ],
     "includePlatforms": [
         "Editor"
